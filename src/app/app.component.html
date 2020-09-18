@@ -8,10 +8,10 @@
       <a class="nav-link" [routerLink]="['/events-special']" routerLinkActive="active" >Members</a>
     </div>
       <div class="navbar-nav" >
-         <a class="nav-link"  [routerLink]="['/login']" routerLinkActive="active">Login</a>
-         <a class="nav-link"   [routerLink]="['/register']" routerLinkActive="active">Register</a>
-         <a class="nav-link"  (click)="returnLogin()" >Logout</a>
-      </div>y
+         <a class="nav-link"  *ngIf="!authser.loggedIn()" [routerLink]="['/login']" routerLinkActive="active">Login</a>
+         <a class="nav-link"  *ngIf="!authser.loggedIn()" [routerLink]="['/register']" routerLinkActive="active">Register</a>
+         <a class="nav-link"  *ngIf="authser.loggedIn()" (click)="returnLogin()" >Logout</a>
+      </div>
     
   </div>
 </nav>

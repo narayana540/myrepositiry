@@ -41,9 +41,10 @@ router.post('/register',(req,res)=>{
          console.log("Error is"+err);
      }
      else{
+        //token generation from the server starts
         const payload={subject:registeredUser._id};
         const token=jwt.sign(payload,'secretkey');
-
+        
         res.status(200).send({token});
      }
    })
