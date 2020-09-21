@@ -3,7 +3,8 @@ const router=express.Router();
 // const bodyparser=require('body-parser');
 const User=require('../models/user');
 const jwt=require('jsonwebtoken');
-const { send } = require('process');
+const multer=require('multer');
+
 
 
 function verifyToken(req,res,next){
@@ -27,7 +28,35 @@ function verifyToken(req,res,next){
 router.get('/',(req,res) => {
     res.send("this is from api");
 });
-router.post('/register',(req,res)=>{
+
+//image uploading starts
+const MIME_TYPE_MAP={
+   'image/png':'png',
+   'image/jpeg':'jpg',
+   'image/jpg':'jpg'
+}
+
+
+const storage=multer.diskStorage({
+
+   destination:(req,file,cb)=>{
+      const isValid=MIME_TYPE_MAP[file.mimetype];
+      const error=new Error("invalid image");
+      if(isValid){
+         error=null;
+      }
+     cb(null,'backend/images')
+   },
+   filename:(req,file,cb)=>{
+      const name=file.originalname.toLowerCase().split(' ').join('-');
+      const ext=MIME_TYPE_MAP[file.mimetype];
+      cb(null,name + '-' + Date.now() +'.' +ext)
+   }
+})
+//image uploading continues
+
+
+router.post('/register',multer(storage).single('image'),(req,res)=>{
    let userData=req.body;
 //    [
 //        {'email':'narayan@gmail.com','password':'password@123'},
@@ -45,7 +74,7 @@ router.post('/register',(req,res)=>{
         const payload={subject:registeredUser._id};
         const token=jwt.sign(payload,'secretkey');
         
-        res.status(200).send({token});
+        res.status(200).send({registeredUser});
      }
    })
 });

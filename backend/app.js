@@ -2,9 +2,10 @@ const express=require('express');
 const bodyparser=require('body-parser');
 const mongoose=require('mongoose');
 const cors=require('cors');
-
+const multer=require('multer');
 
 const api=require('./routes/api');
+// const { connect } = require('http2');
 const app=express();
 
 app.use(bodyparser.json());
@@ -27,3 +28,13 @@ app.get('/',(req,res)=>{
 })
 
 module.exports=app;
+
+// function myFunction(x, y, z) { 
+//     console.log(x, y, z);
+// }
+// const args = [0, 1, 2];
+// myFunction(...args);
+
+// const dateFields = [1970, 0, 1];  // 1 Jan 1970
+// const d = new Date(...dateFields);
+// console.log(d);

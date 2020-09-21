@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,8 @@ import { AuthService } from './auth.service';
 import { EventsService } from './events.service';
 import { AuthGuard } from './auth.guard';
 import { TokeninterceptorService } from './tokeninterceptor.service';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -30,7 +33,9 @@ import { TokeninterceptorService } from './tokeninterceptor.service';
     AppRoutingModule,
     RouterModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [AuthService,AuthGuard,EventsService,
   {
